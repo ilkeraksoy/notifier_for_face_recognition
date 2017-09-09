@@ -1,0 +1,6 @@
+{ "notification": {
+    "title": "This is a test notification!",
+    "body": "This is a test notification!"
+  },
+  "to" : "DEVICE_TOKEN"
+}
