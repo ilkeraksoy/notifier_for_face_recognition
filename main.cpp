@@ -2,44 +2,24 @@
 #include <fstream>
 #include <sstream>
 #include <locale.h>
-#include <cpr/cpr.h>
 
+#include "Notifier.h"
 
 using namespace std;
-
-void readJsonFile(string &body) {
-
-	string temp;
-
-	fstream read("json.txt");
-
-	while (!read.eof())
-	{
-		getline(read, temp);
-		body.append(temp);
-	}
-}
-
-void sendNotification() {
-
-	string body;
-
-	readJsonFile(body);
-
-	auto r = cpr::Post(cpr::Url{ "https://fcm.googleapis.com/fcm/send" },
-		cpr::Body{ body },
-		cpr::Header{ { "Content-Type", "application/json" },
-		{ "Authorization","key=SERVER_API_KEY" } });
-
-	std::cout << r.text << std::endl;
-}
 
 int main() {
 
 	setlocale(LC_ALL, "Turkish");
 
-	sendNotification();
+	vector<string> personNames;
 
+	personNames.push_back("ilker");
+	personNames.push_back("osman");
+
+	Notifier notify(personNames);
+
+	notify.sendMessage("hi i am osman", 1);
+	notify.sendMessage("hi i am ilker", 0);
 
 	system("PAUSE");
 }
